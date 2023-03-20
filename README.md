@@ -1,5 +1,10 @@
 # REST Data Model Python
+This project is a prototype for building a REST API using Python. It consists of server and client code and simulates a simple data exchange.
 
+To be able to run the code Python has to be installed.
+
+
+## Instructions to run the code
 First run the server:
 ```
 python3 server.py
