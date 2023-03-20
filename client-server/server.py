@@ -21,13 +21,14 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 
     def do_POST(self):
         path = self.path[1:]
-        content_length = int(self.headers.get("Content-Length"))    # content length from the request headers
-        # Read request body and if too large transfer in chunks of max 512MB
+        content_length = int(self.headers.get("Content-Length"))    # request headers content length
+        # read request body, if too large transfer in chunks of max 512MB
         chunk_size = 512 * 1024 * 1024
         bytes_read = 0
         with open(path, "wb") as f:
             while bytes_read < content_length:
-                chunk = self.rfile.read(min(chunk_size, content_length - bytes_read))
+                left_bytes = content_length - bytes_read
+                chunk = self.rfile.read(min(chunk_size, left_bytes))
                 if not chunk:   break
                 f.write(chunk)
                 bytes_read += len(chunk)
